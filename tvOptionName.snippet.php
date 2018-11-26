@@ -19,8 +19,8 @@ $options = explode("||", $optionValues);
 foreach ($options as $option) {
     $valueKey = explode("==", $option);
     
-    if ($valueKey[1] == $input) {
-        return $valueKey[0];
+    if (trim($valueKey[1]) == trim($input)) {
+        return trim($valueKey[0]);
     }
 }
 
