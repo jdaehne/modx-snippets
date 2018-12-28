@@ -17,7 +17,7 @@ $optionValues = $tv->get('elements');
 $options = explode("||", $optionValues);
 
 foreach ($options as $option) {
-    $valueKey = explode("==", $option);
+    $valueKey = explode("==", trim($option));
     
     if (trim($valueKey[1]) == trim($input)) {
         return trim($valueKey[0]);
