@@ -7,7 +7,7 @@
  * Usage examples:
  * [[*tvName:sanitizeTel]]
  *
- * @author Jan Dähne <jan.daehne@quadro-system.de>
+ * @author Benjamin Davis <bd@seda.digital>
  */
 
 $stripnumber = '';
