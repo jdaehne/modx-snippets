@@ -9,5 +9,7 @@
  *
  * @author Jan Dähne <jan.daehne@quadro-system.de>
  */
- 
+
+$input = str_replace(',', '.', $input);
+
 return number_format($input, 2, ',', '.');
