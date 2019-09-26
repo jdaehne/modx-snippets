@@ -20,25 +20,30 @@
 
 $outerTpl = $modx->getOption('outerTpl', $scriptProperties, 'archiveOuterTpl', true);
 $tpl = $modx->getOption('tpl', $scriptProperties, 'archiveLinkTpl', true);
-$parents = $modx->getOption('parents', $scriptProperties, $modx->resource->get('parent'), true);
+$parents = explode(',', $modx->getOption('parents', $scriptProperties, $modx->resource->get('parent'), true));
 
 if (empty($parents)) return;
 
-$pdoTools = $modx->getService('pdoFetch');
-$resources = $pdoTools->getCollection('modResource', array('published' => 1, 'deleted' => 0), array('parents' => $parents, 'sortby' => 'publishedon'));
+$query = $modx->newQuery('modResource');
+$query->sortby('publishedon','DESC');
+$query->where(array(
+    'published' => 1,
+    'deleted' => 0,
+    'parent:IN' => $parents,
+));
+$resources = $modx->getCollection('modResource', $query);
+
 
 $archive = array();
 
 foreach ($resources as $resource){
-    $year = date("Y", $resource['publishedon']);
+    $year = date("Y", strtotime($resource->get('publishedon')));
     $archive[$year][] = array(
-            'id' => $resource['id'],
-            'title' => $resource['pagetitle'],
-            'publishedon' => $resource['publishedon'],
+            'id' => $resource->get('id'),
+            'title' => $resource->get('pagetitle'),
+            'publishedon' => $resource->get('publishedon'),
         );
 }
-
-arsort($archive);
 
 $output = '';
 
