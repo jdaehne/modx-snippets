@@ -45,6 +45,11 @@ foreach ($resources as $resource){
         );
 }
 
+
+// get current filtered Year
+$yearSelected = $_GET['year'];
+
+
 $output = '';
 
 foreach ($archive as $year => $resources) {
@@ -62,7 +67,17 @@ foreach ($archive as $year => $resources) {
     $output .= $modx->getChunk($outerTpl,array(
         'year' => $year,
         'links' => $outputLinks,
+        'classes' => $yearSelected == $year ? 'active' : '',
     ));
+}
+
+// set placeholder with ids of filtered resources
+$filteredResources = array();
+if (!empty($yearSelected)) {
+    foreach ($archive[$yearSelected] as $resource) {
+        $filteredResources[] = $resource['id'];
+    }
+    $modx->setPlaceholder('archive.resources', implode(',', $filteredResources));
 }
 
 return $output;
