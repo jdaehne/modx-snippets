@@ -15,6 +15,8 @@ $items = explode(',', $input);
 $tpl = $options;
 $output = '';
 
+if (empty($input)) return;
+
 foreach ($items as $item) {
     $output .= $modx->getChunk($tpl,array(
         'data' => $item,
