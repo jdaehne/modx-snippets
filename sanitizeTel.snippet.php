@@ -17,7 +17,7 @@ if(isset($input) && $input !='') {
 
     $stripbracketzero = preg_replace('~\(\d{1,2}\)~', '', $input);
 
-    $stripplus = preg_replace('~^\D++~', '00', $stripbracketzero);
+    $stripplus = str_replace('+', '00', $stripbracketzero);
 
     $stripnumber = preg_replace('/\D/', '', $stripplus);
 
