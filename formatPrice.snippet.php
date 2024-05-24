@@ -12,4 +12,4 @@
 
 $input = str_replace(',', '.', $input);
 
-return number_format($input, 2, ',', '.');
+return number_format((float)$input, 2, ',', '.');
